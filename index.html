@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset='UTF-8' />
+    <title> ajax with json </title>
+    <link type="text/css" rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>天阿...</h1>
+<div id="demo"><h2>把AJAX返回的数据放到这里</h2></div>
+<button type="button" onclick="send_ajax_request()">改变内容</button>
 
-<script type="text/javascript">
-    $.get("info.text",function (data) {
-       alert(data);
-    });
+
+<script>
+    function send_ajax_request() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // json parse
+                var data = JSON.parse(xhr.responseText)
+                // dom
+                document.getElementById("demo").innerHTML = data.content;
+                // style
+                document.getElementById('demo').style.background = "lightblue";
+            }
+        };
+        xhr.open("GET", "data.json", true);
+        xhr.send();
+    }
 </script>
-
-
-
 </body>
-
-
-
 </html>
